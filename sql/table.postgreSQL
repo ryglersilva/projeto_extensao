@@ -1,0 +1,61 @@
+SELECT * FROM moduloa_ecit;
+SELECT * FROM modulo_ad;
+SELECT * FROM modulo_glpi;
+SELECT * FROM dados_usuarios;
+SELECT * FROM pdf;
+SELECT * FROM permissao;
+CREATE TABLE dados_usuarios (
+    id SERIAL PRIMARY KEY,
+    matricula VARCHAR(20) UNIQUE NOT NULL,
+    nome VARCHAR(100) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    login VARCHAR(20) NOT NULL,
+    genero VARCHAR(20) NOT NULL,
+    senha VARCHAR(20) NOT NULL,
+    data_hora_cdt TIMESTAMP NOT NULL DEFAULT NOW()
+);
+CREATE TABLE permissao(
+    id SERIAL PRIMARY KEY,
+    matricula VARCHAR(20) NOT NULL,
+    pms_adm VARCHAR(20) NOT NULL,
+    pms_op VARCHAR(20) NOT NULL,
+    FOREIGN KEY (matricula) REFERENCES dados_usuarios(matricula) ON DELETE CASCADE
+);
+CREATE TABLE modulo_ad (
+  id SERIAL PRIMARY KEY,
+  matricula VARCHAR(20) NOT NULL,
+  acs_sistem BOOLEAN DEFAULT false,
+  acs_pst_compatilhada BOOLEAN DEFAULT false,
+  FOREIGN KEY (matricula) REFERENCES dados_usuarios(matricula) ON DELETE CASCADE
+);
+CREATE TABLE moduloa_ecit (
+    id SERIAL PRIMARY KEY,
+    matricula VARCHAR(20) NOT NULL,
+    cadastro29 BOOLEAN DEFAULT false,
+    inclusao4823 BOOLEAN DEFAULT false,
+    alteracao4824 BOOLEAN DEFAULT false,
+    exclusao4825 BOOLEAN DEFAULT false,
+    ordem608592 BOOLEAN DEFAULT false,
+    inclusao9524 BOOLEAN DEFAULT false,
+    alteracao9525 BOOLEAN DEFAULT false,
+    geral_financeira56 BOOLEAN DEFAULT false,
+    numpre_numbanco8557 BOOLEAN DEFAULT false,
+    declaracao_de_quitacao_anual8620 BOOLEAN DEFAULT false,
+    FOREIGN KEY (matricula) REFERENCES dados_usuarios(matricula) ON DELETE CASCADE
+);
+CREATE TABLE modulo_glpi (
+  id SERIAL PRIMARY KEY,
+  matricula VARCHAR(20) NOT NULL,
+  acs_sistem BOOLEAN DEFAULT false,
+  FOREIGN KEY (matricula) REFERENCES dados_usuarios(matricula) ON DELETE CASCADE
+);
+CREATE TABLE pdf(
+    id SERIAL PRIMARY KEY,
+    matricula VARCHAR(20) NOT NULL,
+    pdf_ad BYTEA NULL,
+    pdf_ecit BYTEA NULL,
+    pdf_glpi BYTEA NULL,
+    FOREIGN KEY (matricula) REFERENCES dados_usuarios(matricula) ON DELETE CASCADE
+);
+
+
